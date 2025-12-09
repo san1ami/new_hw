@@ -1,0 +1,37 @@
+{% include 'header.html' %}
+
+<h1>{{ book.title }}</h1>
+<p><b>Автор:</b> {{ book.author }}</p>
+<p><b>Жанр:</b> {{ book.genre }}</p>
+<p><b>Описание:</b> {{ book.description }}</p>
+<p><b>Год издания:</b> {{ book.year_published }}</p>
+<p><b>Страниц:</b> {{ book.pages }}</p>
+<p><b>Цена:</b> {{ book.price }} сом</p>
+<p><b>ISBN:</b> {{ book.isbn }}</p>
+<p><b>В наличии:</b> {% if book.available %}Да{% else %}Нет{% endif %}</p>
+
+{% if book.average_rating %}
+<p><b>Средняя оценка:</b> {{ book.average_rating }}/5</p>
+{% else %}
+<p><b>Средняя оценка:</b> пока нет</p>
+{% endif %}
+
+<h2>Отзывы:</h2>
+<ul>
+{% for review in book.reviews.all %}
+    <li>{{ review.user.username }} ({{ review.rating }}/5): {{ review.text }}</li>
+{% empty %}
+    <li>Отзывов пока нет.</li>
+{% endfor %}
+</ul>
+
+<h2>Добавить отзыв:</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Отправить</button>
+</form>
+
+<a href="{% url 'book_list' %}">← Назад к списку</a>
+
+{% include 'footer.html' %}
