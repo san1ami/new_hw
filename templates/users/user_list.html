@@ -1,0 +1,32 @@
+{% load static %}
+{% include '../header.html' %}
+
+
+   <h1>Список пользователей</h1>
+
+<ul class="news-list">
+    {% for i in users_list %}
+    <li class="news-card">
+        <h3>{{ i.username }}</h3>
+        <br>
+        <p>{{ i.email }}</p>
+        <p>{{ i.gender }}</p>
+        <p>{{ i.phone_number }}</p>
+        <p>{{ i.first_name }}</p>
+        <p>{{ i.last_name }}</p>
+        <data>{{ i.date_joined }}</data>
+        <br>
+    </li>
+    {% endfor %}
+</ul>
+
+
+<form action="{% url 'login' %}">
+    {% csrf_token %}
+    <button type="submit">Выйти</button>
+</form>
+
+
+
+
+{% include '../footer.html' %}

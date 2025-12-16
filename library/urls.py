@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path, include
 from books import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -10,6 +11,8 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('time/', views.current_time),
     path('quote/', views.random_quote),
+
+    path('', include('users.urls')),
 
     path('books/', views.book_list, name='book_list'),
     path('books/<int:book_id>/', views.book_detail, name='book_detail'),
